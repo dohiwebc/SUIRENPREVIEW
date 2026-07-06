@@ -1,0 +1,37 @@
+---
+import { getCategoryPath } from "../lib/utils";
+
+interface Props {
+  categories: string[];
+  /** true のときカテゴリ別記事一覧へリンク（ブログ用） */
+  linkable?: boolean;
+}
+
+const { categories, linkable = false } = Astro.props;
+const labels = categories.map((c) => String(c).trim()).filter(Boolean);
+---
+
+{
+  labels.length > 0 &&
+    (labels.length === 1 ? (
+      linkable ? (
+        <a href={getCategoryPath(labels[0])} class="badge badge--link">
+          {labels[0]}
+        </a>
+      ) : (
+        <span class="badge">{labels[0]}</span>
+      )
+    ) : (
+      <span class="badges">
+        {labels.map((label) =>
+          linkable ? (
+            <a href={getCategoryPath(label)} class="badge badge--link">
+              {label}
+            </a>
+          ) : (
+            <span class="badge">{label}</span>
+          )
+        )}
+      </span>
+    ))
+}

@@ -1,0 +1,34 @@
+<div class="blog-sort">
+  <label for="blog-sort-select" class="blog-sort__label">並び替え</label>
+  <select id="blog-sort-select" class="blog-sort__select" aria-label="記事の並び順">
+    <option value="newest" selected>新しい順</option>
+    <option value="oldest">古い順</option>
+  </select>
+</div>
+
+<script>
+  function sortBlogCards(order: "newest" | "oldest") {
+    const grid = document.querySelector("#blog-list .card-grid");
+    if (!grid) return;
+
+    const mult = order === "newest" ? -1 : 1;
+    const cards = Array.from(grid.children) as HTMLElement[];
+
+    cards.sort((a, b) => {
+      const ta = new Date(a.dataset.publishedAt || 0).getTime();
+      const tb = new Date(b.dataset.publishedAt || 0).getTime();
+      return (ta - tb) * mult;
+    });
+
+    cards.forEach((card) => grid.appendChild(card));
+
+    if (typeof window.refreshPageAnimations === "function") {
+      window.refreshPageAnimations();
+    }
+  }
+
+  const select = document.getElementById("blog-sort-select") as HTMLSelectElement | null;
+  select?.addEventListener("change", () => {
+    sortBlogCards(select.value === "oldest" ? "oldest" : "newest");
+  });
+</script>
