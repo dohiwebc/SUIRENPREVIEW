@@ -3,18 +3,21 @@ import sitemap from "@astrojs/sitemap";
 import { loadEnv } from "vite";
 import { fetchBlogPostsForSitemap } from "./src/lib/microcms.ts";
 import { getPostSlug } from "./src/lib/utils.ts";
+import { GITHUB_PAGES_BASE, GITHUB_PAGES_SITE_URL } from "./src/config.ts";
 
 const env = loadEnv(process.env.MODE || "production", process.cwd(), "");
 Object.assign(process.env, env);
 
-const SITE_URL = (env.PUBLIC_SITE_URL || process.env.PUBLIC_SITE_URL || "https://08nsuiren.com").replace(
-  /\/$/,
-  ""
-);
+const SITE_URL = (
+  env.PUBLIC_SITE_URL ||
+  process.env.PUBLIC_SITE_URL ||
+  GITHUB_PAGES_SITE_URL
+).replace(/\/$/, "");
 const posts = await fetchBlogPostsForSitemap();
 
 export default defineConfig({
-  site: SITE_URL,
+  site: "https://dohiwebc.github.io",
+  base: GITHUB_PAGES_BASE,
   trailingSlash: "always",
   output: "static",
   integrations: [

@@ -1,6 +1,7 @@
 ---
 import type { Profile } from "../lib/microcms";
 import { getTikTokUrl } from "../lib/microcms";
+import { withBase } from "../config";
 
 interface Props {
   profile: Profile;
@@ -42,7 +43,7 @@ const tiktokUrl = getTikTokUrl(profile);
     }
     <span class="footer__mark">@08nsuiren</span>
     <nav class="footer__nav" aria-label="フッターナビゲーション">
-      <a href="/privacy/" class="footer__link">Privacy Policy</a>
+      <a href={withBase("/privacy/")} class="footer__link">Privacy Policy</a>
     </nav>
     <p class="footer__copy">&copy; {year} Suiren Notes</p>
   </div>

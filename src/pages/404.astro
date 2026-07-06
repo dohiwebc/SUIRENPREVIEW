@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { withBase } from "../config";
 ---
 
 <Layout
@@ -14,8 +15,8 @@ import Layout from "../layouts/Layout.astro";
       <h1 class="page-hero__title">ページが見つかりません</h1>
       <p class="page-hero__lead">お探しのページは移動または削除された可能性があります。</p>
       <p class="section__more">
-        <a href="/" class="btn btn--primary">トップへ戻る</a>
-        <a href="/blog/" class="btn btn--secondary">ブログ一覧</a>
+        <a href={withBase("/")} class="btn btn--primary">トップへ戻る</a>
+        <a href={withBase("/blog/")} class="btn btn--secondary">ブログ一覧</a>
       </p>
     </div>
   </section>

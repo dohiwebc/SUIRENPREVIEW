@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ArticleCard from "../components/ArticleCard.astro";
-import { absoluteUrl, assetUrl } from "../config";
+import { absoluteUrl, assetUrl, withBase } from "../config";
 import {
   filterPublishedWorks,
   getAllBlogPosts,
@@ -62,7 +62,7 @@ const description =
           <a href="#works-section" class="btn btn--primary">
             制作実績を見る
           </a>
-          <a href="/works/" class="btn btn--secondary">
+          <a href={withBase("/works/")} class="btn btn--secondary">
             Works ページへ
           </a>
         </div>
@@ -142,7 +142,7 @@ const description =
           <h2 class="profile-mini__name">{profile.name || ""}</h2>
           <p class="profile-mini__catchcopy">{profile.catchcopy || ""}</p>
           <p class="profile-mini__school">{profile.school || ""}</p>
-          <a href="/about/" class="btn btn--small btn--accent">もっと知る →</a>
+          <a href={withBase("/about/")} class="btn btn--small btn--accent">もっと知る →</a>
         </div>
       </div>
     </div>
@@ -170,7 +170,7 @@ const description =
       }
     </div>
     <p class="section__more">
-      <a href="/blog/" class="btn btn--secondary">すべての記事を見る →</a>
+      <a href={withBase("/blog/")} class="btn btn--secondary">すべての記事を見る →</a>
     </p>
   </section>
 

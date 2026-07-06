@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getIdToSlugMap } from "../../lib/microcms";
-import { absoluteUrl } from "../../config";
+import { absoluteUrl, withBase } from "../../config";
 
 const idToSlug = await getIdToSlugMap();
 ---
@@ -19,16 +19,16 @@ const idToSlug = await getIdToSlugMap();
         記事ページは <code>/articles/[slug]/</code> に移動しました。
       </p>
       <p class="message">
-        自動的に移動しない場合は、<a href="/blog/">ブログ一覧</a>からご覧ください。
+        自動的に移動しない場合は、<a href={withBase("/blog/")}>ブログ一覧</a>からご覧ください。
       </p>
       <p class="section__more">
-        <a href="/blog/" class="btn btn--primary">ブログ一覧へ</a>
+        <a href={withBase("/blog/")} class="btn btn--primary">ブログ一覧へ</a>
       </p>
     </div>
   </section>
 </Layout>
 
-<script define:vars={{ idToSlug }}>
+<script define:vars={{ idToSlug, basePath: import.meta.env.BASE_URL }}>
   (function redirectLegacyArticle() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
@@ -36,7 +36,7 @@ const idToSlug = await getIdToSlugMap();
 
     const slug = idToSlug[id];
     if (slug) {
-      window.location.replace(`/articles/${encodeURIComponent(slug)}/`);
+      window.location.replace(`${basePath}articles/${encodeURIComponent(slug)}/`);
     }
   })();
 </script>

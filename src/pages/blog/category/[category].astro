@@ -2,8 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import ArticleCard from "../../../components/ArticleCard.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
-import { BLOG_CATEGORIES } from "../../../config";
-import { absoluteUrl } from "../../../config";
+import { BLOG_CATEGORIES, absoluteUrl, withBase } from "../../../config";
 import { getAllBlogPosts } from "../../../lib/microcms";
 import BlogSort from "../../../components/BlogSort.astro";
 import {
@@ -51,13 +50,13 @@ const description = `${category} カテゴリの記事一覧。Suiren Notes。`;
   <section class="section container" aria-label="記事一覧">
     <Breadcrumb
       items={[
-        { label: "Home", href: "/" },
-        { label: "Blog", href: "/blog/" },
+        { label: "Home", href: withBase("/") },
+        { label: "Blog", href: withBase("/blog/") },
         { label: category },
       ]}
     />
     <p class="section__more" style="margin-bottom: 1.5rem;">
-      <a href="/blog/" class="btn btn--secondary">← すべての記事</a>
+      <a href={withBase("/blog/")} class="btn btn--secondary">← すべての記事</a>
     </p>
     <div class="blog-toolbar blog-toolbar--sort-only">
       <BlogSort />

@@ -4,7 +4,7 @@ import ArticleCard from "../../components/ArticleCard.astro";
 import ArticleShare from "../../components/ArticleShare.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
 import CategoryBadge from "../../components/CategoryBadge.astro";
-import { SITE_CONFIG, absoluteUrl } from "../../config";
+import { SITE_CONFIG, absoluteUrl, withBase } from "../../config";
 import type { BlogPost } from "../../lib/microcms";
 import { getAllBlogPosts } from "../../lib/microcms";
 import { sanitizeRichText } from "../../lib/sanitize";
@@ -70,8 +70,8 @@ const jsonLd = {
 };
 
 const breadcrumbItems = [
-  { label: "Home", href: "/" },
-  { label: "Blog", href: "/blog/" },
+  { label: "Home", href: withBase("/") },
+  { label: "Blog", href: withBase("/blog/") },
   { label: post.title },
 ];
 ---
@@ -91,7 +91,7 @@ const breadcrumbItems = [
     <div class="article-page">
       <Breadcrumb items={breadcrumbItems} />
       <nav class="article-page__nav" aria-label="記事ナビゲーション">
-        <a href="/blog/" class="btn btn--secondary">← 記事一覧へ</a>
+        <a href={withBase("/blog/")} class="btn btn--secondary">← 記事一覧へ</a>
       </nav>
       <article class="article">
         <header class="article__header">
@@ -151,7 +151,7 @@ const breadcrumbItems = [
       }
 
       <div class="article__actions">
-        <a href="/blog/" class="btn btn--secondary">← 記事一覧へ</a>
+        <a href={withBase("/blog/")} class="btn btn--secondary">← 記事一覧へ</a>
       </div>
     </div>
   </section>

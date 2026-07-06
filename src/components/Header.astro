@@ -1,5 +1,5 @@
 ---
-import { IS_WORKS_PREVIEW } from "../config";
+import { IS_WORKS_PREVIEW, withBase } from "../config";
 
 interface Props {
   currentPath: string;
@@ -8,10 +8,10 @@ interface Props {
 const { currentPath } = Astro.props;
 
 const navItems = [
-  { href: "/", label: "Home", match: (p: string) => p === "/" },
-  { href: "/works/", label: "Works", match: (p: string) => p.startsWith("/works") },
-  { href: "/about/", label: "About", match: (p: string) => p.startsWith("/about") },
-  { href: "/blog/", label: "Blog", match: (p: string) => p.startsWith("/blog") || p.startsWith("/articles") },
+  { href: withBase("/"), label: "Home", match: (p: string) => p === "/" },
+  { href: withBase("/works/"), label: "Works", match: (p: string) => p.startsWith("/works") },
+  { href: withBase("/about/"), label: "About", match: (p: string) => p.startsWith("/about") },
+  { href: withBase("/blog/"), label: "Blog", match: (p: string) => p.startsWith("/blog") || p.startsWith("/articles") },
 ];
 
 function isActive(match: (p: string) => boolean): boolean {
@@ -28,7 +28,7 @@ function isActive(match: (p: string) => boolean): boolean {
     )
   }
   <div class="container header__inner">
-    <a href="/" class="header__logo">
+    <a href={withBase("/")} class="header__logo">
       <span class="header__logo-main">Suiren Notes</span>
       <span class="header__logo-sub">by 08nsuiren</span>
     </a>

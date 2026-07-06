@@ -1,4 +1,4 @@
-import { absoluteUrl } from "../config";
+import { absoluteUrl, withBase } from "../config";
 import { sanitizeRichText } from "./sanitize";
 import type { BlogPost, MicroCMSImage } from "./microcms";
 
@@ -112,7 +112,7 @@ export function getPostSlug(post: BlogPost): string {
 
 /** 記事詳細ページのパス（末尾スラッシュ付き） */
 export function getArticlePath(post: BlogPost): string {
-  return `/articles/${encodeURIComponent(getPostSlug(post))}/`;
+  return withBase(`/articles/${encodeURIComponent(getPostSlug(post))}/`);
 }
 
 export function getArticleUrl(post: BlogPost): string {
@@ -135,7 +135,7 @@ export function getArticleDescription(post: BlogPost): string {
 }
 
 export function getCategoryPath(category: string): string {
-  return `/blog/category/${encodeURIComponent(category)}/`;
+  return withBase(`/blog/category/${encodeURIComponent(category)}/`);
 }
 
 export function getRelatedPosts(
