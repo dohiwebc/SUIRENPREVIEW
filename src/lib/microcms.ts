@@ -220,9 +220,12 @@ export const FALLBACK_WORKS: Work[] = [
 ];
 
 function getMicroCMSConfig(): { domain: string; apiKey: string } | null {
-  const domain =
-    import.meta.env.MICROCMS_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN;
-  const apiKey = import.meta.env.MICROCMS_API_KEY || process.env.MICROCMS_API_KEY;
+  const domain = String(
+    import.meta.env.MICROCMS_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN || ""
+  ).trim();
+  const apiKey = String(
+    import.meta.env.MICROCMS_API_KEY || process.env.MICROCMS_API_KEY || ""
+  ).trim();
 
   if (!domain || !apiKey || domain === "YOUR_SERVICE_DOMAIN" || apiKey === "your_api_key_here") {
     return null;
