@@ -170,9 +170,59 @@ export const FALLBACK_BLOG_POSTS: BlogPost[] = [
   },
 ];
 
+export const FALLBACK_WORKS: Work[] = [
+  {
+    id: "fallback-work-1",
+    title: "FreelaBoard",
+    description: "フリーランス向けのタスク・案件管理Webアプリ。",
+    thumbnail: null,
+    url: "",
+    category: "WebApp",
+    tech: ["HTML", "CSS", "JavaScript", "Firebase"],
+    projectType: ["自主制作"],
+    priceAmount: "要相談",
+    priceTax: "税込",
+    priceIsEstimate: true,
+    isFeatured: true,
+    isPublished: false,
+  },
+  {
+    id: "fallback-work-2",
+    title: "SAKURA GROUP MATCH LOG",
+    description: "グループマッチの記録・振り返り用サイト。",
+    thumbnail: null,
+    url: "",
+    category: "Portfolio",
+    tech: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+    projectType: ["架空案件"],
+    priceAmount: "5万円〜",
+    priceTax: "税込",
+    priceIsEstimate: true,
+    priceIncludes: "構成・デザイン・コーディング",
+    isFeatured: true,
+    isPublished: false,
+  },
+  {
+    id: "fallback-work-3",
+    title: "ABYSS",
+    description: "ブランドコンセプトを表現したLP制作。",
+    thumbnail: null,
+    url: "",
+    category: "LP",
+    tech: ["HTML", "CSS", "JavaScript", "AI"],
+    projectType: ["架空案件"],
+    priceAmount: "3万円〜",
+    priceTax: "税込",
+    priceIsEstimate: true,
+    isFeatured: true,
+    isPublished: false,
+  },
+];
+
 function getMicroCMSConfig(): { domain: string; apiKey: string } | null {
-  const domain = import.meta.env.MICROCMS_SERVICE_DOMAIN;
-  const apiKey = import.meta.env.MICROCMS_API_KEY;
+  const domain =
+    import.meta.env.MICROCMS_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN;
+  const apiKey = import.meta.env.MICROCMS_API_KEY || process.env.MICROCMS_API_KEY;
 
   if (!domain || !apiKey || domain === "YOUR_SERVICE_DOMAIN" || apiKey === "your_api_key_here") {
     return null;
@@ -307,9 +357,14 @@ export async function getProfile(): Promise<Profile> {
 
 export async function getWorksList(): Promise<Work[]> {
   try {
-    return await fetchAllFromList<Work>(ENDPOINTS.WORKS);
-  } catch {
-    return [];
+    const works = await fetchAllFromList<Work>(ENDPOINTS.WORKS);
+    return works.length > 0 ? works : [...FALLBACK_WORKS];
+  } catch (err) {
+    console.warn(
+      "[Suiren Notes] microCMS から制作実績を取得できませんでした。フォールバックデータを使用します。",
+      err
+    );
+    return [...FALLBACK_WORKS];
   }
 }
 

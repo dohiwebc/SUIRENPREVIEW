@@ -1,10 +1,12 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import { loadEnv } from "vite";
+import { applyMicroCMSEnvFromConfig } from "./scripts/load-microcms-env.mjs";
 import { fetchBlogPostsForSitemap } from "./src/lib/microcms.ts";
 import { getPostSlug } from "./src/lib/utils.ts";
 import { GITHUB_PAGES_BASE, GITHUB_PAGES_SITE_URL } from "./src/config.ts";
 
+applyMicroCMSEnvFromConfig();
 const env = loadEnv(process.env.MODE || "production", process.cwd(), "");
 Object.assign(process.env, env);
 

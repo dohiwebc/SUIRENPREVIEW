@@ -33,9 +33,10 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          PUBLIC_SITE_URL: https://dohiwebc.github.io/SUIRENPREVIEW
+          # microCMS は .env 未設定時 js/config.js から自動読み込み
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
-          PUBLIC_SITE_URL: https://dohiwebc.github.io/SUIRENPREVIEW
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
